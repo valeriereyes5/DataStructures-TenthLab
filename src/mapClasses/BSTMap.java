@@ -69,9 +69,8 @@ public class BSTMap<K, V> implements Map<K, V> {
 			return null;
 		}
 		ModifiableEntry<K, V> result = (ModifiableEntry<K, V>) tree.get(key); 
+		V val=result.setValue(value);
 
-		V val = result.getValue();
-		
 
 		return val;
 	}
@@ -94,27 +93,59 @@ public class BSTMap<K, V> implements Map<K, V> {
 		// AS PART OF EXERCISE 1.
 	}
 
+	
+	/**
+	 * Constructs an iterable collection containing all the keys 
+	 * stored in the map collection. 
+	 * @return the iterable collection of keys.
+	 */
+
 	@Override
 	public Iterable<K> keySet() {
-		ArrayList<K> keys = new ArrayList<>();
+
 		// ADD CODE HERE AS PART OF EXERCISE 2. 
 		// USE THE FACT THE THE LINKED BINARY TREE IS ITERABLE of its elements!
+		ArrayList<K> keys = new ArrayList<>();
+		for (Entry<K,V> ks: entrySet()) {
+			keys.add(ks.getKey());
+		}
+		
 		return keys; 
 	}
+
+	
+	/**
+	 * Constructs an iterable collection containing all the values 
+	 * store in the map collection. 
+	 * @return the iterable collection of values.
+	 */
 
 	@Override
 	public Iterable<V> values() {
 		// ADD CODE HERE AS PART OF EXERCISE 2. 
 		// USE THE FACT THE THE LINKED BINARY TREE IS ITERABLE of its elements!
-		return null;   // NEED TO CHANGE THIS STATEMENT TOO
+		ArrayList<V> values = new ArrayList<>();
+		for (Entry<K,V> val: entrySet()) {
+			values.add(val.getValue());
+		}
+		
+		return values; 
 	}
 
 	@Override
 	public Iterable<Entry<K, V>> entrySet() {
 		// ADD CODE HERE AS PART OF EXERCISE 2.
 		// USE THE FACT THE THE LINKED BINARY TREE IS ITERABLE of its elements!
-		return null;  // NEED TO CHANGE THIS STATEMENT TOO
+
+		ArrayList<Entry<K, V>> eList = new ArrayList<>(); 
+
+		for (Position<Entry<K, V>> p : tree.positions())    // positions in inorder for binary tree
+			eList.add(p.getElement()); 
+
+		return eList;
 	}
+
+
 
 	public void displayMAPTree() {   // This operation has been added just for testing
 		this.tree.display();
