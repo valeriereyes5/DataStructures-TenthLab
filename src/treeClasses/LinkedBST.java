@@ -282,5 +282,59 @@ implements BinarySearchTree<K, V>  {
 		
 		
 	}
+	
+	
+	private Position<Entry<K, V>> findBiggestPosition(Position<Entry<K, V>> r) {
+		while (right(r) != null) 
+			r = right(r); 
+		return r;
+	}
+	
+	//returns null if tree is empty. Otherwise, 
+	//it returns reference to entry having minimum value of its key.
+	public Entry<K, V> min(){
+		if(isEmpty()) {
+		return null;
+		}
+		
+		return findSmallestPosition(this.root()).getElement();
+		
+	}
+	
+	
+	//	returns null if tree is empty. Otherwise,
+	//it returns reference to entry having maximum value of its key.
+	public Entry<K, V> max(){
+		if(isEmpty()) {
+		return null;
+		}
+		
+		return findBiggestPosition(this.root()).getElement();
+		
+	}
+	
+	
+	
+	//returns null if tree is empty. Otherwise,
+	//removes entry having minimum value of its key and returns 
+	//reference to that removed entry.
+	public Entry<K, V> removeMin(){
+		if(isEmpty()) {
+			return null;
+		}
+		return super.remove(findSmallestPosition(root));
+		
+	}
+	
+	
+	//returns null if tree is empty. Otherwise, 
+	//removes entry having maximum value of its key and returns 
+	//reference to that removed entry. 
+	public Entry<K, V> removeMax(){
+		if(isEmpty()) {
+			return null;
+		}
+		return super.remove(findBiggestPosition(root));
+	}
 
 }
